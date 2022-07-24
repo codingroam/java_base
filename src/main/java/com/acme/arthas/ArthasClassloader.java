@@ -1,0 +1,47 @@
+package com.acme.arthas;
+
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
+
+public class ArthasClassloader extends URLClassLoader {
+    public ArthasClassloader(URL[] urls) {
+        super(urls, ClassLoader.getSystemClassLoader().getParent());
+    }
+
+    @Override
+    protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+        final Class<?> loadedClass = findLoadedClass(name);
+        if (loadedClass != null) {
+            return loadedClass;
+        }
+
+        // 优先从parent（SystemClassLoader）里加载系统类，避免抛出ClassNotFoundException
+        if (name != null && (name.startsWith("sun.") || name.startsWith("java."))) {
+            return super.loadClass(name, resolve);
+        }
+        try {
+            Class<?> aClass = findClass(name);
+            if (resolve) {
+                resolveClass(aClass);
+            }
+            return aClass;
+        } catch (Exception e) {
+            // ignore
+        }
+        return super.loadClass(name, resolve);
+    }
+
+
+    public static void main(String[] args) throws Exception {
+
+        File file = new File("C:\\Users\\13747\\Desktop\\yy\\testjar.jar");
+        URL[] urls = {file.toURI().toURL()};
+        ArthasClassloader arthasClassloader = new ArthasClassloader(urls);
+        ClassLoader parent = arthasClassloader.getParent();
+        Class<?> aClass = arthasClassloader.loadClass("com.acme.Order");
+        aClass.getMethod("showGoods",null).invoke(aClass.newInstance(),null);
+
+
+    }
+}
