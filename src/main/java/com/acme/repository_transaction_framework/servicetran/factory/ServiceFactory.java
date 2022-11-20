@@ -1,16 +1,10 @@
 package com.acme.repository_transaction_framework.servicetran.factory;
 
-import com.acme.repository_transaction_framework.annotation.Transaction;
-import com.acme.repository_transaction_framework.repository.factory.DaoFactory;
-import com.acme.repository_transaction_framework.repository.dao.StudentDao;
-import com.acme.repository_transaction_framework.repository.po.StudentPO;
 import com.acme.repository_transaction_framework.servicetran.proxy.ServiceProxy;
 import com.acme.repository_transaction_framework.servicetran.service.BaseService;
-import com.acme.repository_transaction_framework.servicetran.service.StudentService;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class ServiceFactory {
 

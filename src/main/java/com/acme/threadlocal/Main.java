@@ -2,7 +2,7 @@ package com.acme.threadlocal;
 
 import com.acme.utils.UThread;
 
-public class Main {
+public class  Main {
 
     public static void main(String[] args) throws NoSuchMethodException {
 

@@ -3,18 +3,19 @@ package com.acme.repository_transaction_framework.servicetran.proxy;
 import com.acme.repository_transaction_framework.annotation.Transaction;
 import com.acme.repository_transaction_framework.repository.jdbcbase.ConnectionManager;
 import com.acme.repository_transaction_framework.repository.typeobject.ParamType;
-import com.acme.repository_transaction_framework.servicetran.service.StudentService;
 import com.acme.repository_transaction_framework.servicetran.service.BaseService;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import com.acme.repository_transaction_framework.servicetran.service.StudentService;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 
 public class ServiceProxy<T> implements InvocationHandler {
 
     private BaseService target;
-    private static Logger logger = LoggerFactory.getLogger(ServiceProxy.class);
+    //private static Logger logger = LoggerFactory.getLogger(ServiceProxy.class);
 
     public ServiceProxy(Class<T> clazz){
         try {
